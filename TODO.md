@@ -1,0 +1,4 @@
+- [ ] Create chai command
+- [ ] Add chatgpt support
+- [ ] Add copilot support
+- [ ] Optionally render markdown
