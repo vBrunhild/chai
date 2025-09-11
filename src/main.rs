@@ -1,8 +1,19 @@
-mod structs;
-use crate::structs::Token;
+mod core;
+
+use clap::Parser;
+use core::{HasToken, OpenAi};
+
+#[derive(Debug, Parser)]
+#[command(name = "chai")]
+#[command(about = "Send message", long_about = None)]
+struct Cli {
+    message: Vec<String>,
+}
 
 #[tokio::main]
 async fn main() {
-    let token = Token::read_env();
+    let cli = Cli::parse();
+    let token = OpenAi::get_token();
     dbg!(token);
+    println!("{}", cli.message.join(" "));
 }
