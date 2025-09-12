@@ -1,19 +1,13 @@
 mod core;
+mod cli;
 
-use clap::Parser;
-use core::{HasToken, OpenAi};
+use std::sync::LazyLock;
+use reqwest::Client;
 
-#[derive(Debug, Parser)]
-#[command(name = "chai")]
-#[command(about = "Send message", long_about = None)]
-struct Cli {
-    message: Vec<String>,
-}
+pub static CLIENT: LazyLock<Client> = LazyLock::new(|| {
+    Client::new()
+});
 
 #[tokio::main]
 async fn main() {
-    let cli = Cli::parse();
-    let token = OpenAi::get_token();
-    dbg!(token);
-    println!("{}", cli.message.join(" "));
 }
