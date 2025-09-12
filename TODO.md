@@ -1,4 +1,5 @@
 - [ ] Create chai command
 - [ ] Add chatgpt support
-- [ ] Add copilot support
-- [ ] Optionally render markdown
+- [ ] Render markdown
+- [ ] User configuration file
+- [ ] SQLite database for message keeping
