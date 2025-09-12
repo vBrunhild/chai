@@ -43,6 +43,8 @@
             pkgs.rustfmt
             pkgs.sqlx-cli
           ];
+
+          DATABASE_URL = "sqlite://./chai.db";
         };
       }
     );
