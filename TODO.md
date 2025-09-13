@@ -1,5 +1,7 @@
-- [ ] Create chai command
+- [ ] Create chat command
+  - [ ] Create attach file flag
 - [ ] Add chatgpt support
 - [ ] Render markdown
 - [ ] User configuration file
 - [ ] SQLite database for message keeping
+- [ ] Option to run as a daemon to keep database and client connections alive
