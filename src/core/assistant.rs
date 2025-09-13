@@ -7,9 +7,5 @@ pub enum AssistantError {
 }
 
 pub trait Assistant {
-    fn send() -> impl Future<Output = Result<Response, AssistantError>>;
-}
-
-pub trait HasApi {
-    const BASE_URL: &'static str;
+    fn send(&self, message: String) -> impl Future<Output = Result<Response, AssistantError>>;
 }

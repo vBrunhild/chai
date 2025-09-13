@@ -1,6 +1,7 @@
 // The followings types follow OpenAI's API reference
 // https://platform.openai.com/docs/api-reference/responses/object
 
+mod body;
 mod content;
 mod data;
 mod input;
@@ -10,6 +11,14 @@ mod response;
 mod role;
 mod status;
 
+pub use body::{
+    Body,
+    BodyInput,
+    Model,
+    Reasoning,
+    ReasoningEffort,
+    ReasoningSummary
+};
 pub use content::Content;
 pub use data::Data;
 pub use input::Input;

@@ -1,4 +1,4 @@
-use std::{env, fmt::Debug, marker::PhantomData};
+use std::{env, fmt::{Debug, Display}, marker::PhantomData};
 
 pub struct Token<T>(String, PhantomData<T>);
 
@@ -13,8 +13,13 @@ impl<T: Debug> Debug for Token<T> {
         f
             .debug_tuple("Token")
             .field(&"****")
-            .field(&self.1)
             .finish()
+    }
+}
+
+impl<T> Display for Token<T> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(&self.0)
     }
 }
 
@@ -26,7 +31,8 @@ pub enum TokenError {
     NotUnicode,
 }
 
-pub trait HasToken: Sized {
+pub trait HasApi: Sized {
+    const BASE_URL: &'static str;
     const VAR: &'static str;
 
     fn get_token() -> Result<Token<Self>, TokenError> {

@@ -3,8 +3,11 @@ mod core;
 mod providers;
 
 use reqwest::Client;
+use serde_json::Value;
 use sqlx::sqlite::{SqlitePool, SqlitePoolOptions};
 use std::{env, fs, sync::LazyLock};
+
+use crate::providers::open_ai;
 
 pub static CLIENT: LazyLock<Client> = LazyLock::new(Client::new);
 
@@ -18,8 +21,7 @@ pub static DB: LazyLock<SqlitePool> = LazyLock::new(|| {
             .join("chai.db")
     };
 
-    fs::create_dir_all(db_path.parent().expect("has parent"))
-        .expect("creates parent dirs");
+    fs::create_dir_all(db_path.parent().expect("has parent")).expect("creates parent dirs");
 
     let url = format!("sqlite://{}", db_path.display());
     SqlitePoolOptions::new()
@@ -29,5 +31,5 @@ pub static DB: LazyLock<SqlitePool> = LazyLock::new(|| {
 
 #[tokio::main]
 async fn main() {
-    let provider = providers::open_ai::OpenAi::new().unwrap();
+    let provider = open_ai::OpenAi::new().unwrap();
 }

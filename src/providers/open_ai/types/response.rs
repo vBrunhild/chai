@@ -10,6 +10,7 @@ pub struct Response {
 }
 
 #[derive(Debug, serde::Deserialize)]
+#[serde(rename_all = "snake_case")]
 pub enum ResponseStatus {
     Cancelled,
     Completed,
