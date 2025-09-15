@@ -1,4 +1,5 @@
 .direnv/
 .envrc
+.harper-dictionary.txt
 /target
 /chai
