@@ -1,35 +1,22 @@
 mod cli;
 mod core;
+mod database;
 mod providers;
 
 use reqwest::Client;
-use serde_json::Value;
-use sqlx::sqlite::{SqlitePool, SqlitePoolOptions};
-use std::{env, fs, sync::LazyLock};
+use std::sync::LazyLock;
 
 use crate::providers::open_ai;
 
 pub static CLIENT: LazyLock<Client> = LazyLock::new(Client::new);
-
-pub static DB: LazyLock<SqlitePool> = LazyLock::new(|| {
-    let db_path = if cfg!(debug_assertions) {
-        "./chai.db".into()
-    } else {
-        env::home_dir()
-            .expect("has a home directory")
-            .join("chai")
-            .join("chai.db")
-    };
-
-    fs::create_dir_all(db_path.parent().expect("has parent")).expect("creates parent dirs");
-
-    let url = format!("sqlite://{}", db_path.display());
-    SqlitePoolOptions::new()
-        .connect_lazy(url.as_str())
-        .expect("creates / accesses database")
-});
+pub static DB: LazyLock<sqlx::Pool<sqlx::Sqlite>> = LazyLock::new(database::get);
 
 #[tokio::main]
 async fn main() {
+    sqlx::migrate!()
+        .run(&DB.clone())
+        .await
+        .expect("migrates db schemas");
+
     let provider = open_ai::OpenAi::new().unwrap();
 }

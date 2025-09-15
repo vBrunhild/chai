@@ -14,7 +14,7 @@ tokio = { version = "1.47", features = ["macros", "rt-multi-thread"] }
 [dependencies.sqlx]
 version = "0.8.6"
 default-features = false
-features = ["macros", "runtime-tokio", "sqlite", "sqlx-sqlite", "tls-rustls-ring"]
+features = ["macros", "migrate", "runtime-tokio", "sqlite", "sqlx-sqlite", "tls-rustls-ring"]
 
 [lints.rust]
 unsafe_code = "forbid"
