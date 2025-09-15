@@ -1,5 +1,2 @@
-mod open_ai;
-mod token;
-
-pub use open_ai::OpenAi;
-pub use token::{Token, HasToken,  TokenError};
+pub mod assistant;
+pub mod token;

@@ -1,19 +1,22 @@
+mod cli;
 mod core;
+mod database;
+mod providers;
 
-use clap::Parser;
-use core::{HasToken, OpenAi};
+use reqwest::Client;
+use std::sync::LazyLock;
 
-#[derive(Debug, Parser)]
-#[command(name = "chai")]
-#[command(about = "Send message", long_about = None)]
-struct Cli {
-    message: Vec<String>,
-}
+use crate::providers::open_ai;
+
+pub static CLIENT: LazyLock<Client> = LazyLock::new(Client::new);
+pub static DB: LazyLock<sqlx::Pool<sqlx::Sqlite>> = LazyLock::new(database::get);
 
 #[tokio::main]
 async fn main() {
-    let cli = Cli::parse();
-    let token = OpenAi::get_token();
-    dbg!(token);
-    println!("{}", cli.message.join(" "));
+    sqlx::migrate!()
+        .run(&DB.clone())
+        .await
+        .expect("migrates db schemas");
+
+    let provider = open_ai::OpenAi::new().unwrap();
 }

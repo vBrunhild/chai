@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS conversation (
+    id INTEGER PRIMARY KEY,
+    description TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    created_by TEXT NOT NULL
+);
