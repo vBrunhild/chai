@@ -15,7 +15,7 @@ Here are some things to be aware before starting.
  ```bash
  git checkout -b <feature/change>
  ```
- 4. Make your changes, run tests then commit them while following our [Commit Guidelines](<CONTRIBUTING#Commit Guidelines>).
+ 4. Make your changes, run tests then commit them while following our [Commit Guidelines](CONTRIBUTING.md#Commit Guidelines).
  5. Push branch to your fork.
  ```
  git push 
